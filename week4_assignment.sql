@@ -1,39 +1,24 @@
+-- week4_assignment.sql
+-- Week 4: Advanced SQL - SUM, AVG, MAX, GROUP BY, ORDER BY, LIMIT
 
--- Week 4 Database Assignment
--- Advanced SQL Queries and Aggregations
--- Author: Hawo Mohamed Osman
+-- Query 1: SUM() - Total sales amount
+SELECT SUM(amount) AS total_sales
+FROM sales;
 
--- Question 1: Total payment amount for each payment date
-SELECT 
-    paymentDate,
-    SUM(amount) AS total_amount
-FROM payments
-GROUP BY paymentDate
-ORDER BY paymentDate DESC
-LIMIT 5;
+-- Query 2: AVG() with GROUP BY - Average price per category
+SELECT category, AVG(price) AS average_price
+FROM products
+GROUP BY category;
 
+-- Query 3: MAX() with GROUP BY and ORDER BY - Highest price per category
+SELECT category, MAX(price) AS max_price
+FROM products
+GROUP BY category
+ORDER BY max_price DESC;
 
--- Question 2: Average credit limit of each customer
-SELECT 
-    customerName,
-    country,
-    AVG(creditLimit) AS average_credit_limit
-FROM customers
-GROUP BY customerName, country;
-
-
--- Question 3: Total price of products ordered
-SELECT 
-    productCode,
-    quantityOrdered,
-    SUM(quantityOrdered * priceEach) AS total_price
-FROM orderdetails
-GROUP BY productCode, quantityOrdered;
-
-
--- Question 4: Highest payment amount for each check number
-SELECT 
-    checkNumber,
-    MAX(amount) AS highest_amount
-FROM payments
-GROUP BY checkNumber;
+-- Query 4: GROUP BY + ORDER BY + LIMIT - Top 3 customers by order count
+SELECT customer_id, COUNT(*) AS order_count
+FROM orders
+GROUP BY customer_id
+ORDER BY order_count DESC
+LIMIT 3;
